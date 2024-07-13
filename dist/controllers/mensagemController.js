@@ -12,8 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const apiAdviceSlip_1 = __importDefault(require("../services/apiAdviceSlip"));
 const http_status_codes_1 = require("http-status-codes");
+const mensagemRepository_1 = __importDefault(require("../repository/mensagemRepository"));
 function healthCheck(req, res, next) {
     try {
         res.status(http_status_codes_1.StatusCodes.OK).end();
@@ -26,9 +26,8 @@ function healthCheck(req, res, next) {
 function findRandomAdvice(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const response = yield apiAdviceSlip_1.default.get('/advice');
-            console.log(response.data);
-            res.status(http_status_codes_1.StatusCodes.OK).json(response.data).end();
+            const response = yield mensagemRepository_1.default.findRandomAdvice();
+            res.status(http_status_codes_1.StatusCodes.OK).json(response).end();
         }
         catch (error) {
             console.error(error);

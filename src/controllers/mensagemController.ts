@@ -1,6 +1,6 @@
-import api from '../services/apiAdviceSlip';
 import { StatusCodes } from 'http-status-codes';
 import { Request, Response } from 'express';
+import mensagemRepository from '../repository/mensagemRepository';
 
 function healthCheck(req: Request, res: Response, next: any){
     try {
@@ -13,11 +13,9 @@ function healthCheck(req: Request, res: Response, next: any){
 
 async function findRandomAdvice(req: Request, res: Response, next: any){
     try {
-        const response = await api.get('/advice');
-
-        console.log(response.data);
-
-        res.status(StatusCodes.OK).json(response.data).end();
+        const response = await mensagemRepository.findRandomAdvice();
+        
+        res.status(StatusCodes.OK).json(response).end();
     } catch (error) {
         console.error(error);
         res.status(StatusCodes.BAD_REQUEST).end();

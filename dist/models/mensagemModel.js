@@ -15,6 +15,14 @@ const mensagem = mysqldb_1.default.define('mensagens', {
     mensagem: {
         type: sequelize_1.default.STRING(255),
         allowNull: false
+    },
+    idMensagem: {
+        type: sequelize_1.default.NUMBER,
+        allowNull: false
+    },
+    data: {
+        type: sequelize_1.default.DATE,
+        allowNull: false
     }
 });
 exports.default = mensagem;

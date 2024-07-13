@@ -15,6 +15,14 @@ const mensagem = mysqldb.define<iMensagemModel>('mensagens', {
     mensagem: {
         type: sequelize.STRING(255),
         allowNull: false
+    },
+    idMensagem: {
+        type: sequelize.NUMBER,
+        allowNull: false
+    },
+    data: {
+        type: sequelize.DATE,
+        allowNull: false
     }
 });
 
