@@ -19,11 +19,32 @@ async function findRandomAdvice(): Promise<iMensagem>{
     return mensagem;    
 }
 
+async function findAdviceById(slip_id: number): Promise<iMensagem>{
+    const response = await api.get<iAdviceSlipResponse>(`/advice/${ slip_id }`);
+    const { slip } = response.data;
+    const { id, advice } = slip;
+
+    const codigo = uuid4();
+
+    const mensagem = new Mensagem(codigo, advice, id, new Date());
+
+    const adv = await create(mensagem);
+
+    return {
+        codigo: adv.codigo,
+        mensagem: adv.mensagem,
+        idMensagem: adv.idMensagem,
+        data: adv.data
+    }
+}
+
+//TODO: refatorar e colocar em outro arquivo de dados...PENSAR SOBRE
 async function create(mensagem: iMensagem){
     return mensagemModel.create(mensagem);
 }
 
 export default {
     findRandomAdvice,
-    create
+    findAdviceById,
+    create    
 }

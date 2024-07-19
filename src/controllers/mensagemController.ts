@@ -22,7 +22,22 @@ async function findRandomAdvice(req: Request, res: Response, next: any){
     }
 }
 
+async function findAdviceById(req: Request, res: Response, next: any){
+    try {
+        //pegar o codigo no body
+        const slip_id = req.params['slip_id'];
+
+        const response = await mensagemRepository.findAdviceById(parseInt(slip_id));
+
+        res.status(StatusCodes.OK).json(response).end();
+    } catch (error) {
+        console.error(error);
+        res.status(StatusCodes.BAD_REQUEST).end();
+    }
+}
+
 export default {
     healthCheck,
+    findAdviceById,
     findRandomAdvice
 }
